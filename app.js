@@ -1243,9 +1243,12 @@
   if (!headline) return;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+  let spinning = false;
+
   const tornado = () => {
-    if (reduceMotion.matches) return;
-    headline.animate(
+    if (reduceMotion.matches || spinning) return;
+    spinning = true;
+    const anim = headline.animate(
       [
         { transform: "rotate(0deg) scale(1) translateX(0)" },
         { transform: "rotate(-6deg) scale(0.98) translateX(3px)", offset: 0.1 },
@@ -1256,8 +1259,12 @@
       ],
       { duration: 1150, easing: "cubic-bezier(0.45, 0.05, 0.25, 1)" }
     );
+    anim.onfinish = () => {
+      spinning = false;
+    };
   };
 
   window.setTimeout(tornado, 450);
   window.setInterval(tornado, 15000);
+  headline.addEventListener("mouseenter", tornado);
 })();
