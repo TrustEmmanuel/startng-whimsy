@@ -834,7 +834,7 @@
 
   const COLORS = ["#ff8a5b", "#ffd166", "#ffb3d9", "#c9b8ff", "#7cc6ff", "#5fd6a8"];
   const COUNT = 6;
-  const MAX_LIVE = 48;
+  const MAX_LIVE = 90;
   const JAR_REVEAL = [1, 3, 6, 10, 15, 21];
   const jarBtn = document.getElementById("jar-btn");
   const jarCountEl = document.getElementById("jar-count");
@@ -960,7 +960,7 @@
     const host = ensureLayer();
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const total = vw < 560 ? 16 : 26;
+    const total = vw < 560 ? 26 : 44;
 
     for (let i = 0; i < total; i++) {
       const size = 42 + Math.random() * 22;
@@ -1151,7 +1151,7 @@
     const jar = jarBtn.getBoundingClientRect();
     const originX = jar.left + jar.width / 2;
     const originY = jar.top + jar.height * 0.4;
-    const total = Math.min(freed, 18);
+    const total = Math.min(freed, 24);
     const vw = window.innerWidth;
 
     for (let i = 0; i < total; i++) {
@@ -1192,9 +1192,10 @@
   function scheduleDrift() {
     window.setTimeout(() => {
       drift();
-      if (Math.random() < 0.5) window.setTimeout(drift, 400 + Math.random() * 900);
+      window.setTimeout(drift, 140 + Math.random() * 260);
+      window.setTimeout(drift, 420 + Math.random() * 420);
       scheduleDrift();
-    }, 1200 + Math.random() * 1400);
+    }, 900 + Math.random() * 800);
   }
 
   window.setTimeout(rush, 420);
